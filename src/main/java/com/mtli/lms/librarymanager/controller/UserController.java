@@ -144,7 +144,7 @@ public class UserController {
         borrow.setB_author(bAuthor);
         //判断该读者能否借书
         if(reader.getR_borrow_q()<readerType.getC_lend_q() && reader.getR_status().equals("有效")){//可以预约
-            boolean res = borrowService.addBorrow(borrow);
+            boolean res = borrowService.addBorrowByUser(borrow);
             if(res){
                 reader.setR_borrow_q(reader1.getR_borrow_q()+1);
                 readerService.updateUser(reader);

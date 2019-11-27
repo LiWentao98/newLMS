@@ -24,6 +24,7 @@ $(document).ready(function () {
         var borrowId= tr.find("td:eq(0)").text();
         var rId= tr.find("td:eq(3)").text();
         solveReserve(borrowId,rId);
+        $(this).parent().parent().remove();
     });
 });
 
@@ -43,7 +44,6 @@ function solveReserve(borrowId,rId) {
             }
             else {
                 alert("处理成功");
-                $(this).parent().parent().remove();
             }
             // window.history.go(-1);
         },

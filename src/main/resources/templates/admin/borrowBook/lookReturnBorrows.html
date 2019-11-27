@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>查看未归还借阅单</title>
+    <title>查看借阅单</title>
     <script src="/scripts/jquery-3.3.1.min.js"></script>
     <link href="/css/myUIstyle.css" rel="stylesheet" />
     <script src="/scripts/base/base.js"></script>
@@ -24,6 +24,7 @@
             <th>续借次数</th>
             <th>借书日期</th>
             <th>应还日期</th>
+            <th>实还日期</th>
             <th>超出天数</th>
             <th>超出金额</th>
             <th>罚款金额</th>
@@ -35,6 +36,7 @@
             <td th:text="${borrows.getId_continue_times()}"></td>
             <td th:text="${borrows.getId_date_out()}"></td>
             <td th:text="${borrows.getId_date_ret_plan()}"></td>
+            <td th:text="${borrows.getId_date_ret_act()}"></td>
             <td th:text="${borrows.getId_over_day()}"></td>
             <td th:text="${borrows.getId_over_money()}"></td>
             <td th:text="${borrows.getId_punish_money()}"></td>

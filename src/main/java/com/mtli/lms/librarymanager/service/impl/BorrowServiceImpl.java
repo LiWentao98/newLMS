@@ -79,5 +79,14 @@ public class BorrowServiceImpl implements BorrowService {
         return pageList;
     }
 
+    @Override
+    public boolean addBorrowByUser(Borrow borrow) {
+        int n = borrowMapper.addBorrowT(borrow);
+        if(n>0){
+            return true;
+        }
+        return false;
+    }
+
 
 }

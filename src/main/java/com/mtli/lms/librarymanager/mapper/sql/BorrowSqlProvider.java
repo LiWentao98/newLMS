@@ -15,7 +15,18 @@ public class BorrowSqlProvider {
             VALUES("r_id","#{r_id}");
             VALUES("b_id","#{b_id}");
             VALUES("id_date_out, id_date_ret_plan","#{id_date_out}, #{id_date_ret_plan}");
-            VALUES("id_date_ret_act, id_over_day","#{id_date_ret_act}, #{id_over_day}");
+            VALUES("id_over_day","#{id_over_day}");
+            VALUES("id_over_money, id_punish_money","#{id_over_money}, #{id_punish_money}");
+            VALUES("is_has_return, b_name","#{is_has_return}, #{b_name}");
+            VALUES("b_author, r_name","#{b_author}, #{r_name}");
+        }}.toString();
+    }
+
+    public String addBorrowT(Borrow borrow){
+        return new SQL(){{
+            INSERT_INTO("borrow");
+            VALUES("r_id","#{r_id}");
+            VALUES("b_id","#{b_id}");
             VALUES("id_over_money, id_punish_money","#{id_over_money}, #{id_punish_money}");
             VALUES("is_has_return, b_name","#{is_has_return}, #{b_name}");
             VALUES("b_author, r_name","#{b_author}, #{r_name}");
@@ -34,9 +45,9 @@ public class BorrowSqlProvider {
             if(borrow.getId_date_ret_plan()!=null){
                 SET("id_date_ret_plan = #{id_date_ret_plan}");
             }
-            if(borrow.getId_date_ret_act()!=null){
-                SET("id_date_ret_act = #{id_date_ret_act}");
-            }
+//            if(borrow.getId_date_ret_act()!=null){
+//                SET("id_date_ret_act = #{id_date_ret_act}");
+//            }
             if(borrow.getId_over_day()!=null){
                 SET("id_over_day = #{id_over_day}");
             }
@@ -46,7 +57,7 @@ public class BorrowSqlProvider {
             if(borrow.getId_punish_money()!=null){
                 SET("id_punish_money = #{id_punish_money}");
             }
-            if(borrow.is_has_return()){
+            if(borrow.isIs_has_return()){
                 SET("is_has_return = 1");
             }
             WHERE("borrow_id = #{borrow_id}");

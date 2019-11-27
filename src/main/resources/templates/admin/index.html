@@ -8,6 +8,14 @@
     <link href="/css/myUIstyle.css" rel="stylesheet" />
 </head>
 <body>
+
+     body{background-image: url("../img/bg.jpg");
+     background-position: center center;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: cover;
+     }
+
     <div th:replace="/admin/top1 :: mytop" ></div>
 
     <div th:replace="/admin/side1 :: side" ></div>
@@ -15,5 +23,6 @@
     <div style="margin-left:18%;padding:1px 16px;">
        <h2>欢迎使用图书管理系统</h2>
     </div>
+
   </body>
 </html>

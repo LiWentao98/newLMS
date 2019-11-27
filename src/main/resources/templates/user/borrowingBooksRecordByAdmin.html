@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户首页</title>
+    <title>查看借阅单</title>
     <script src="/scripts/jquery-3.3.1.min.js"></script>
     <link href="/css/myUIstyle.css" rel="stylesheet" />
     <script src="/scripts/base/base.js"></script>
@@ -15,11 +15,12 @@
 <div th:replace="/user/side2 :: side2" ></div>
 
 <div style="margin-left:18%;padding:1px 16px;">
-    <h3 style="text-align: center">借阅单</h3>
+    <h3 style="text-align: center">已还借阅单</h3>
     <table>
         <tr>
             <th>借阅顺序号</th>
             <th>图书名</th>
+            <th>借书人</th>
             <th>续借次数</th>
             <th>借书日期</th>
             <th>应还日期</th>
@@ -32,24 +33,39 @@
         <tr th:each="borrows : ${b}">
             <td th:text="${borrows.getBorrow_id()}"></td>
             <td th:text="${borrows.getB_name()}"></td>
+            <td th:text="${borrows.getR_name()}"></td>
             <td th:text="${borrows.getId_continue_times()}"></td>
             <td th:text="${borrows.getId_date_out()}"></td>
             <td th:text="${borrows.getId_date_ret_plan()}"></td>
-            <td th:text="${borrows.getId_date_ret_act()}"></td>
-            <td th:text="${borrows.getId_over_day()}"></td>
-            <td th:text="${borrows.getId_over_money()}"></td>
-            <td th:text="${borrows.getId_punish_money()}"></td>
-            <td th:if="${borrows.is_has_return()} == true"><label th:text="已还"></label></td>
-            <td th:if="${borrows.is_has_return()} == false"><label th:text="未还"></label></td>
+            <td th:switch = "${borrows.getId_date_ret_act()} == null" >
+                <div th:case="true" th:text = "未归还" ></div>
+                <div th:case="false" th:text = "${borrows.getId_date_ret_act()}" ></div>
+            </td>
+            <td th:switch = "${borrows.getId_over_day()} == null" >
+                <div th:case="true" th:text = "0" ></div>
+                <div th:case="false" th:text = "${borrows.getId_over_day()}" ></div>
+            </td>
+            <td th:switch = "${borrows.getId_over_money()} == null" >
+                <div th:case="true" th:text = "0" ></div>
+                <div th:case="false" th:text = "${borrows.getId_over_money()}" ></div>
+            </td>
+            <td th:switch = "${borrows.getId_punish_money()} == null" >
+                <div th:case="true" th:text = "0" ></div>
+                <div th:case="false" th:text = "${borrows.getId_punish_money()}" ></div>
+            </td>
+            <td th:if="${borrows.isIs_has_return()} == true"><label th:text="已还"></label></td>
+            <td th:if="${borrows.isIs_has_return()} == false"><label th:text="未还"></label></td>
         </tr>
     </table>
     <br><br>
     <div style="position:absolute;right: 110px ">
-        <label id="lab1" th:text="${pageNum}"></label>/<label id="lab2" th:text="${pageCount}"></label>
+        <label id="lab1" th:text="${pageNum}">1</label>/<label id="lab2" th:text="${pageCount}"></label>
     </div>
-
-    <a id="prePage" th:href="@{/reader/look_borrows(pageNum=${pageNum -1})}" style="position: absolute; right: 140px;background-color: #aaaaaa">上一页</a>
-    <a id="nextPage" th:href="@{/reader/look_borrows(pageNum=${pageNum +1})}" style="position: absolute; right: 60px;background-color: #aaaaaa">下一页</a>
+    <a id="prePage" th:href="@{/reader/look_admin_borrows(pageNum=${pageNum -1})}" style="position: absolute; right: 140px;background-color: #aaaaaa">上一页</a>
+    <a id="nextPage" th:href="@{/reader/look_admin_borrows(pageNum=${pageNum +1})}" style="position: absolute; right: 60px;background-color: #aaaaaa">下一页</a>
 </div>
+
+
 </body>
 </html>
+

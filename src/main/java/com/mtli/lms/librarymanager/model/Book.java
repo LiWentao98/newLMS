@@ -1,5 +1,6 @@
 package com.mtli.lms.librarymanager.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +25,7 @@ public class Book  {
     private Integer b_language;//语言，0-中文，1-英文，2-日文，3-俄文，
     private Integer b_pages;//页数
     private BigDecimal b_price;//价格
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date b_date_in;//入馆日期
     private String b_brief;//内容简介
     private byte[] b_cover;//图书封面照片

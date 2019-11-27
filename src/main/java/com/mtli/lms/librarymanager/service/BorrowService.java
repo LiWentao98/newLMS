@@ -19,4 +19,6 @@ public interface BorrowService {
     int searchAdminBorrowsCount(Integer r_id);
     //管理员查询所有的预约单
     List<Borrow> searchAllBorrowsByAdmin(Integer pageNum);
+    //读者添加预约单
+    boolean addBorrowByUser(Borrow borrow);
 }

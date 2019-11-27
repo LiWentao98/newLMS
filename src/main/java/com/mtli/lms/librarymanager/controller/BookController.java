@@ -85,8 +85,7 @@ public class BookController {
         book.setB_date_in(date);
         //设置在馆
         book.setB_status("在馆");
-        Book book1 = book;
-        boolean res=adminService.addBook(book1);
+        boolean res=adminService.addBook(book);
         if(res){
             return "true";
         }

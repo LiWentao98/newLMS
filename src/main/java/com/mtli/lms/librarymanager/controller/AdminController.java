@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -45,6 +47,7 @@ public class AdminController {
     private Book book = new Book();
     private ReaderUtil readerUtil= new ReaderUtil();
     private ReaderType readerType = new ReaderType();
+    private SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     /**
      * 管理员去登录
@@ -472,7 +475,7 @@ public class AdminController {
         book1.setB_repertory(book1.getB_repertory()+1);
         bookService.update(book1);
         borrow.setBorrow_id(borrowId);
-        borrow.set_has_return(true);
+        borrow.setIs_has_return(true);
         borrow.setId_date_ret_act(date);
         //差超期天数
 
@@ -553,8 +556,11 @@ public class AdminController {
             //增加续借数
             borrow.setId_continue_times(bCT+1);
             //更改应还日期
+            //String str = borrow.getId_date_ret_plan();
+            //ParsePosition pos = new ParsePosition(0);
+            Date date1 = borrow.getId_date_ret_plan();
             Calendar c = Calendar.getInstance();
-            c.setTime(borrow.getId_date_ret_plan());
+            c.setTime(date1);
             c.add(5,adminService.addDays(rId));
             borrow.setId_date_ret_plan(c.getTime());
             if(adminService.updateBorrowList(borrow)){
@@ -563,6 +569,11 @@ public class AdminController {
             return "false";
         }
         return "false";
+    }
+
+    @GetMapping("/user_help")
+    public String userHelp(){
+        return "user/helpPage";
     }
 
 }

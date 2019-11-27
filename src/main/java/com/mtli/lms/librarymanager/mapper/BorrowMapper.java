@@ -14,6 +14,9 @@ public interface BorrowMapper {
     //添加预约借书单
     @InsertProvider(type = BorrowSqlProvider.class,method = "addBorrow")
     int addBorrow(Borrow borrow);
+    //添加预约借书单
+    @InsertProvider(type = BorrowSqlProvider.class,method = "addBorrowT")
+    int addBorrowT(Borrow borrow);
     //查询所有预约单（通过读者id）
     @Select("select * from borrow where r_id = #{r_id} and id_date_out is null")
     List<Borrow> searchReserveBorrowList(Integer r_id);
