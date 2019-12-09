@@ -3,14 +3,27 @@ $(document).ready(function () {
     //给选择框赋值
     findAllBookCategory();
 
-    $("button").click(function () {
+    // $("#input:button").click(function () {
+    //     if(confirm("确认预约?")){
+    //         var tr = $(this).closest("tr");
+    //         var bName= tr.find("td:eq(0)").text();
+    //         var bAuthor= tr.find("td:eq(1)").text();
+    //         var bId = $(this).val();
+    //         borrowBook(bId,bName,bAuthor);
+    //     }
+    // });
+    $("input:button").click(function (){
         if(confirm("确认预约?")){
             var tr = $(this).closest("tr");
-            var bName= tr.find("td:eq(0)").text();
-            var bAuthor= tr.find("td:eq(1)").text();
-            var bId = $(this).val();
+            var bId= tr.find("td:eq(0)").text();
+            var bName= tr.find("td:eq(1)").text();
+            var bAuthor= tr.find("td:eq(2)").text();
             borrowBook(bId,bName,bAuthor);
         }
+    });
+    $("button").click(function (){
+        var bId = $(this).val();
+        window.location.href="user_look_book_message/"+bId;
     });
 });
 

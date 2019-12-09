@@ -28,7 +28,7 @@ public class Book  {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date b_date_in;//入馆日期
     private String b_brief;//内容简介
-    private byte[] b_cover;//图书封面照片
+    private String b_cover;//图书封面照片
     private String b_status;//图书状态，在馆、借出、遗失、变卖、销毁
     private Integer b_repertory;//图书库存
 }

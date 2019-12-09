@@ -208,6 +208,7 @@ public class AdminController {
     @PostMapping("/add_user")
     public void addUser(Reader reader, HttpServletResponse response){
         reader.setR_status("有效");
+        reader.setR_borrow_q(0);
         boolean res = adminService.addUser(reader);
         try {
             PrintWriter writer = response.getWriter();
@@ -367,6 +368,7 @@ public class AdminController {
         borrow.setId_date_ret_plan(ca.getTime());
         borrow.setB_author(bAuthor);
         borrow.setB_name(bName);
+        borrow.setIs_has_return(false);
         borrow.setR_name(readerService.searchJReader(rId).getR_name());
 
         reader.setR_id(rId);
@@ -420,17 +422,14 @@ public class AdminController {
         ca.add(Calendar.DATE, adminService.addDays(rId));// num为增加的天数，可以改变的
 
         Reader reader1 = readerService.searchJReader(rId);
-        ReaderType readerType = readerTypeService.searchMessage(reader1.getR_type());
         borrow.setBorrow_id(borrowId);
         borrow.setId_date_out(date);
         borrow.setId_date_ret_plan(ca.getTime());
+        borrow.setIs_has_return(false);
 
-        reader.setR_id(rId);
-        if(readerService.searchBorrowQ(rId)<readerType.getC_lend_q() && reader1.getR_status().equals("有效")){//可以预约
+        if(reader1.getR_status().equals("有效")){//可以预约
             boolean res = adminService.updateReserveBorrow(borrow);
             if(res){
-                reader.setR_borrow_q(reader1.getR_borrow_q()+1);
-                readerService.updateUser(reader);
                 return "true";
             }
             return "false";
@@ -477,8 +476,6 @@ public class AdminController {
         borrow.setBorrow_id(borrowId);
         borrow.setIs_has_return(true);
         borrow.setId_date_ret_act(date);
-        //差超期天数
-
         if(adminService.updateReserveBorrow(borrow)){
             readerService.updateUser(reader1);
             return "true";
@@ -556,8 +553,6 @@ public class AdminController {
             //增加续借数
             borrow.setId_continue_times(bCT+1);
             //更改应还日期
-            //String str = borrow.getId_date_ret_plan();
-            //ParsePosition pos = new ParsePosition(0);
             Date date1 = borrow.getId_date_ret_plan();
             Calendar c = Calendar.getInstance();
             c.setTime(date1);
@@ -576,4 +571,65 @@ public class AdminController {
         return "user/helpPage";
     }
 
+    @GetMapping("/to_re_transact")
+    public String toReTransact(){
+        return "admin/reader/reTransact";
+    }
+
+    /**
+     * 补办前先进行查询
+     * @param model
+     * @param rId
+     * @return
+     */
+    @PostMapping("/re_transact_search")
+    public String reTransactSearch(Model model,@RequestParam("r_id") Integer rId){
+        reader.setR_id(rId);
+        List<Reader> reader1 = adminService.searchUserById(reader);
+        model.addAttribute("reader",reader1);
+        return "admin/reader/reTransact";
+    }
+
+    /**
+     * 补办借书证
+     * @param newRid
+     * @param oldRid
+     * @return
+     */
+    @PostMapping("/re_transact")
+    @ResponseBody
+    public String reTransact(@Param("newRid") Integer newRid,@Param("oldRid") Integer oldRid){
+        if(newRid != null){
+            //老用户的信息迁移到新用户
+            Reader reader1 = readerService.searchJReader(oldRid);
+            reader1.setR_id(newRid);
+            boolean res = adminService.addUser(reader1);
+            if (res && newRid!=null){
+                reader.setR_status("注销");
+                adminService.updateUser(reader);
+                //老用户的借阅记录迁移
+                if(reader1.getR_borrow_q()>0) {
+                    adminService.reTransact(newRid, oldRid);
+                }
+                return "true";
+            }
+        }
+        return "false";
+    }
+
+    /**
+     * 更改借书证状态页面注销借书证
+     * @param rId
+     * @return
+     */
+    @PostMapping("logout_rId")
+    @ResponseBody
+    public String logoutRId(@RequestParam("rId") Integer rId){
+        reader.setR_status("注销");
+        boolean res = adminService.updateUser(reader);
+        if(res){
+            return "true";
+        }
+        return "false";
+    }
 }

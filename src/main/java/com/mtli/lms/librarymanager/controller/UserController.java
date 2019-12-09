@@ -15,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,17 +82,27 @@ public class UserController {
     }
 
     @PostMapping("/userLogin")
-    public String userLogin(@RequestParam("cardNumber") Integer cardNumber,
-                            @RequestParam("password") String password, HttpServletRequest request){
+    public void userLogin(@RequestParam("cardNumber") Integer cardNumber,
+                          @RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response){
         Reader reader = new Reader();
         reader.setR_id(cardNumber);
         reader.setR_pwd(password);
         Reader reader1 = readerService.searchReader(reader);
-        if(reader1.getR_name()!=null){
-            request.getSession().setAttribute("reader",reader1);
-            return "user/index";
+        try {
+            PrintWriter writer = response.getWriter();
+            String msg = null;
+            if(reader1!=null && reader1.getR_status().equals("有效")){
+                request.getSession().setAttribute("reader",reader1);
+                msg = "alert( 'login success' );location.href='/reader/to_index'";
+            }else {
+                msg = "alert('Username or password wrong!');history.go(-1)";
+            }
+            writer.print("<script>" + msg + "</script>");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return "index";
     }
 
     @GetMapping("/to_index")

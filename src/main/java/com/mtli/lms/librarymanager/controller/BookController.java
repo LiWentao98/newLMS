@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -90,6 +91,58 @@ public class BookController {
             return "true";
         }
         return "false";
+    }
+
+    /**
+     * 去添加图片
+     * @return
+     */
+    @GetMapping("/to_add_photo/{bId}")
+    public String toAddPhoto(@PathVariable(value = "bId",required = false) String bId,Model model){
+        model.addAttribute("bId",bId);
+        return "admin/book/addPhoto";
+    }
+
+    /**
+     * 管理员为图书添加图片
+     * @param file
+     * @param b_id
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/add_photo")
+    @ResponseBody
+    public String addPhoto(@RequestParam(value="img", required=false) MultipartFile file,@RequestParam(value = "bId",required = false) Integer b_id) throws Exception {
+        int res = bookService.addPhoto(file,b_id);
+        if(res>0){
+            return "true";
+        }
+        return "false";
+    }
+
+    /**
+     * 管理员查看图书详情
+     * @param b_id
+     * @param model
+     * @return
+     */
+    @GetMapping("/to_look_book_message/{bId}")
+    public String toLookBookMessage(@PathVariable("bId") Integer b_id,Model model){
+        Book book = bookService.searchBookByBId(b_id);
+//        model.addAttribute("b",book);
+        String url = book.getB_cover();
+        model.addAttribute("b",book);
+        model.addAttribute("url",url);
+        return "admin/book/lookBookMessage";
+    }
+
+    @GetMapping("/user_look_book_message/{bId}")
+    public String userLookBookMessage(@PathVariable("bId") Integer b_id,Model model){
+        Book book = bookService.searchBookByBId(b_id);
+        String url = book.getB_cover();
+        model.addAttribute("b",book);
+        model.addAttribute("url",url);
+        return "user/lookBookMessage";
     }
 
     /**

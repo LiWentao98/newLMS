@@ -17,7 +17,7 @@
 
 <div style="margin-left:18%;padding:1px 16px;">
 
-    <div style="float: none;width: 50%;height: 100%">
+    <div style="float: none;width: 100%;height: 100%">
         <h3 style="text-align: center">查询结果</h3>
         <table>
             <tr>
@@ -29,16 +29,19 @@
                 <th>入馆日期</th>
                 <th>库存</th>
                 <th>状态</th>
+                <th>操作</th>
             </tr>
             <tr th:each="book:${b}">
                 <td><label th:text="${book.getB_id()}"></label></td>
                 <td><label th:text="${book.getB_name()}"></label></td>
                 <td><label th:text="${book.getB_author()}"></label></td>
                 <td><label th:text="${book.getB_press()}"></label></td>
-                <td><label th:text="${book.getB_date_press()}"></label></td>
-                <td><label th:text="${book.getB_date_in()}"></label></td>
+                <td><label th:text="${#dates.format(book.getB_date_press(), 'yyyy-MM-dd HH:mm')}"></label></td>
+                <td><label th:text="${#dates.format(book.getB_date_in(), 'yyyy-MM-dd HH:mm')}"></label></td>
                 <td><label th:text="${book.getB_repertory()}"></label></td>
                 <td><label th:text="${book.getB_status()}"></label></td>
+                <td th:if="${book.getB_cover()} == null"><input type="button" value="添加图片"></td>
+                <td th:if="${book.getB_cover()} != null"><button th:value="${book.getB_id()}">查看详情</button></td>
             </tr>
         </table>
 

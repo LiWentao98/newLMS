@@ -3,7 +3,7 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>导航栏</title>
+    <title>查询读者</title>
     <script src="/scripts/jquery-3.3.1.min.js"></script>
     <script src="/scripts/base/base.js"></script>
     <script src="/scripts/Admin/newUser.js"></script>
@@ -23,6 +23,7 @@
             <th>姓名</th>
             <th>性别</th>
             <th>类别</th>
+            <th>办证日期</th>
             <th>所属院系</th>
             <th>电话号码</th>
             <th>借书证状态</th>
@@ -36,6 +37,7 @@
             <td th:if="${reader.getR_type()} == 20"><label th:text="专科生"></label></td>
             <td th:if="${reader.getR_type()} == 30"><label th:text="硕士生"></label></td>
             <td th:if="${reader.getR_type()} == 40"><label th:text="教师"></label></td>
+            <td><label th:text="${#dates.format(reader.getR_date_reg(),'yyyy-MM-dd')}"></label></td>
             <td><label th:text="${reader.getR_dept()}"></label></td>
             <td><label th:text="${reader.getR_phone()}"></label></td>
             <td><label th:text="${reader.getR_status()}"></label></td>

@@ -22,7 +22,7 @@ public interface BookMapper {
     void deleteBook(Book book);
     //图书信息更改
     @UpdateProvider(type = BookSqlProvider.class,method = "editBook")
-    void updateBook(Book book);
+    int updateBook(Book book);
     //根据其他条件查询图书
     @SelectProvider(type = BookSqlProvider.class,method = "selectBookByConditions")
     List<Book> selectBookByConditions(Book book);

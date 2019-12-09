@@ -35,11 +35,11 @@
             <td th:text="${borrows.getB_name()}"></td>
             <td th:text="${borrows.getR_name()}"></td>
             <td th:text="${borrows.getId_continue_times()}"></td>
-            <td th:text="${borrows.getId_date_out()}"></td>
-            <td th:text="${borrows.getId_date_ret_plan()}"></td>
+            <td th:text="${#dates.format(borrows.getId_date_out(),'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(borrows.getId_date_ret_plan(),'yyyy-MM-dd')}"></td>
             <td th:switch = "${borrows.getId_date_ret_act()} == null" >
                 <div th:case="true" th:text = "未归还" ></div>
-                <div th:case="false" th:text = "${borrows.getId_date_ret_act()}" ></div>
+                <div th:case="false" th:text = "${#dates.format(borrows.getId_date_ret_act(),'yyyy-MM-dd')}" ></div>
             </td>
             <td th:switch = "${borrows.getId_over_day()} == null" >
                 <div th:case="true" th:text = "0" ></div>

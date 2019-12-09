@@ -1,21 +1,4 @@
 $(document).ready(function () {
-
-    // //给选择框赋值
-    // findAllBookCategory();
-    //
-    // $("#bookCategoryForm").validate({
-    //    rules:{
-    //        bookCategory:{
-    //            required:true
-    //        }
-    //    } ,
-    //     messages:{
-    //        bookCategory:{
-    //            required:"请选择图书类别"
-    //        }
-    //     }
-    // });
-
     //检查能否再点击上一页，下一页
     var lab1=$("#lab1").html().trim();//获取当前页码
     var lab2=$("#lab2").html().trim();//获取总页码
@@ -34,27 +17,28 @@ $(document).ready(function () {
         }
         return true;
     });
+    $("input:button").click(function (){
+        var tr = $(this).closest("tr");
+        var bId= tr.find("td:eq(0)").text();
+        window.location.href="to_add_photo/"+bId;
+    });
+    $("button").click(function (){
+        var bId = $(this).val();
+        window.location.href="to_look_book_message/"+bId;
+    });
 });
-//
-// function findAllBookCategory() {
-//     $.ajax({
-//         async : false,
-//         type : "post",
-//         url : "/book/find_all_book_category",
-//         dataType : "json",
-//         success: function (data) {
-//             console.log(data);
-//             $("select[name='bookCategory']").empty();
-//             $("select[name='bookCategory']").append('<option value="">——请选择——</option>');
-//             for(var i=0;i<data.length;i++){
-//                 var html ='<option value="'+data[i].c_id+'">';
-//                 html +=data[i].c_name + '</option>';
-//                 $("select[name='bookCategory']").append(html);
-//             }
-//         },
-//         error:function (data) {
-//             alert(data.result);
-//         }
-//     });
-// }
 
+function lookBookMessage(bId) {
+    $.ajax({
+        async : false,
+        type : "get",
+        url : "/book/to_look_book_message",
+        data: {bId:bId},
+        success: function (data) {
+
+        },
+        error:function (data) {
+            alert(data.result);
+        }
+    });
+}

@@ -2,6 +2,7 @@ package com.mtli.lms.librarymanager.service;
 
 import com.mtli.lms.librarymanager.model.Book;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -29,4 +30,6 @@ public interface BookService {
     List<Book> searchBookLastCode();
     //
     int searchBookCountByConditions(Book book);
+    //添加图片
+    int addPhoto( MultipartFile file,Integer b_id)throws Exception;
 }

@@ -8,7 +8,6 @@
         <li id="fun2" class="hidden"><a th:href="@{/admin/to_add_catelog}">新建类别</a></li>
         <li id="fun9" class="hidden"><a th:href="@{/admin/show_catelogs(pageNum=1)}">所有类别</a></li>
         <li id="fun2" class="hidden"><a th:href="@{/admin/to_show_books}">查询书籍</a></li>
-        <li id="fun11" class="hidden"><a href="#">图书处理</a></li>
     </div>
     <li id="click_2"><a href="#">用户管理</a></li>
     <div class="funBackgroungColor">
@@ -28,7 +27,7 @@
     <li id="click_4"><a href="#">借书证管理</a></li>
     <div class="funBackgroungColor">
         <li id="fun7" class="hidden"><a th:href="@{/admin/to_edit_rId}">修改状态</a></li>
-        <li id="fun10" class="hidden"><a href="#">补办借书证</a></li>
+        <li id="fun10" class="hidden"><a th:href="@{/admin/to_re_transact}">补办借书证</a></li>
     </div>
 </ul>
 </html>

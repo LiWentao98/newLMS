@@ -22,7 +22,7 @@ public class ReaderSqlProvider {
           VALUES("r_sex, r_dept","#{r_sex}, #{r_dept}");
           VALUES("r_phone, r_email","#{r_phone}, #{r_email}");
           VALUES("r_date_reg, r_photo","#{r_date_reg}, #{r_photo}");
-          VALUES("r_status","#{r_status}");
+          VALUES("r_status, r_borrow_q","#{r_status},#{r_borrow_q}");
           VALUES("a_id","#{a_id}");
           VALUES("r_type","#{r_type}");
        }}.toString();

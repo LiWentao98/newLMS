@@ -24,6 +24,7 @@
             <th>性别</th>
             <th>读者类别</th>
             <th>所属院系</th>
+            <th>办证日期</th>
             <th>电话号码</th>
             <th>借书证状态</th>
             <th>已借书数量</th>
@@ -37,10 +38,10 @@
             <td th:if="${reader.getR_type()} == 30"><label th:text="硕士生"></label></td>
             <td th:if="${reader.getR_type()} == 40"><label th:text="教师"></label></td>
             <td><label th:text="${reader.getR_dept()}"></label></td>
+            <td><label th:text="${#dates.format(reader.getR_date_reg(),'yyyy-MM-dd')}"></label></td>
             <td><label th:text="${reader.getR_phone()}"></label></td>
             <td><label th:text="${reader.getR_status()}"></label></td>
             <td><label th:text="${reader.getR_borrow_q()}"></label></td>
-            <td><button th:value="${reader.getR_id()}">删除</button></td>
         </tr>
     </table>
     <br>

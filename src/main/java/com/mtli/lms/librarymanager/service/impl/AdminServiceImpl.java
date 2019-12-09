@@ -194,4 +194,10 @@ public class AdminServiceImpl implements AdminService {
     public Borrow searchBorrowByBorrowId(Integer borrowId) {
         return borrowMapper.searchBorrowByBorrowId(borrowId);
     }
+
+    @Override
+    public void reTransact(Integer newRid, Integer oldRid) {
+        //迁移借书记录
+        borrowMapper.changeRecord(newRid,oldRid);
+    }
 }

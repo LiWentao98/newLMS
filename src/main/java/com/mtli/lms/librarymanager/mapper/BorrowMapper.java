@@ -2,9 +2,7 @@ package com.mtli.lms.librarymanager.mapper;
 
 import com.mtli.lms.librarymanager.mapper.sql.BorrowSqlProvider;
 import com.mtli.lms.librarymanager.model.Borrow;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -59,4 +57,7 @@ public interface BorrowMapper {
     //根据借阅单号查询借阅单
     @Select("select * from borrow where borrow_id = #{borrowId}")
     Borrow searchBorrowByBorrowId(Integer borrowId);
+    //补办借书证借书记录迁移
+    @Update("update borrow set r_id = #{newRid} where r_id = #{oldRid}")
+    void changeRecord(@Param("newRid") Integer newRid,@Param("oldRid") Integer oldRid);
 }

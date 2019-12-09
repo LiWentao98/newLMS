@@ -48,4 +48,6 @@ public interface AdminService {
     boolean updateBorrowList(Borrow borrow);
     //根据borrowId查询借书单
     Borrow searchBorrowByBorrowId(Integer borrowId);
+    //补办
+    void reTransact(Integer newRid,Integer oldRid);
 }

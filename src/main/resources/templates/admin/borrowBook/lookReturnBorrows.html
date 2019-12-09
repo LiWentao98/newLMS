@@ -34,12 +34,15 @@
             <td th:text="${borrows.getB_name()}"></td>
             <td th:text="${borrows.getR_name()}"></td>
             <td th:text="${borrows.getId_continue_times()}"></td>
-            <td th:text="${borrows.getId_date_out()}"></td>
-            <td th:text="${borrows.getId_date_ret_plan()}"></td>
-            <td th:text="${borrows.getId_date_ret_act()}"></td>
-            <td th:text="${borrows.getId_over_day()}"></td>
-            <td th:text="${borrows.getId_over_money()}"></td>
-            <td th:text="${borrows.getId_punish_money()}"></td>
+            <td th:text="${#dates.format(borrows.getId_date_out(),'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(borrows.getId_date_ret_plan(),'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(borrows.getId_date_ret_act(),'yyyy-MM-dd')}"></td>
+            <td th:if="${borrows.getId_over_day()} != null"><label th:text="${borrows.getId_over_day()}"></label></td>
+            <td th:if="${borrows.getId_over_day()} == null"><label th:text="${0}"></label></td>
+            <td th:if="${borrows.getId_over_money()} != null"><label th:text="${borrows.getId_over_money()}"></label></td>
+            <td th:if="${borrows.getId_over_money()} == null"><label th:text="${0}"></label></td>
+            <td th:if="${borrows.getId_punish_money()} != null"><label th:text="${borrows.getId_punish_money()}"></label></td>
+            <td th:if="${borrows.getId_punish_money()} == null"><label th:text="${0}"></label></td>
         </tr>
     </table>
     <br><br>

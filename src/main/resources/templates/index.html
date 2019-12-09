@@ -22,7 +22,7 @@
         <div class="left">
             <div class="login">Login</div>
             <div class="eula">图书管理系统  用户登录<br>
-            <!--<a href="/admin/to_login" style="">管理员登陆</a>-->
+                <!--<a href="/admin/to_login" style="">管理员登陆</a>-->
                 <a th:href="@{/admin/to_login}">管理员登陆</a>
             </div>
         </div>
@@ -52,16 +52,17 @@
             <div class="form">
                 <form th:action = "@{/reader/userLogin}" method="post" id="form1">
                     <label for="cardNumber">借书证号</label>
-                    <input type="text" id="cardNumber" name="cardNumber">
+                    <input type="text" id="cardNumber" name="cardNumber" onblur="checkUser(this)">
                     <label for="password">用户密码</label>
                     <input type="password" id="password" name="password">
                     <input type="submit" id="submit" value="Submit">
                 </form>
             </div>
         </div>
+
     </div>
 </div>
-
+<div class="copyright" style="color:black">计算机科学学院 版权所有©2019 技术支持电话：18727854339</div>
 </body>
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js}" ></script>
 <script th:src="@{/scripts/login/index.js}"></script>

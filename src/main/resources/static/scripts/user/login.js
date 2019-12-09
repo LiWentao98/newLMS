@@ -1,44 +1,34 @@
-$(document).ready(function () {
-    $("#form1").validate({
-        rules:{  //校验规则
-            cardNumber:{
-                required:true
-            },
-            password:{
-                required: true,
-                minLength: 6
+
+//当用户账号输入框失去焦点时调用该方法
+function checkUser(obj){
+    //获取输入框输入的值
+    var user = obj.value;
+    //isExist(user);
+    //如果输入框中的值为空，那么弹窗提示，并且让该输入框获得焦点
+    if(!user){
+        alert("用户名不能为空！");
+        obj.focus();
+        //isExist(user);
+        return;
+    }
+}
+
+
+function isExist(user){
+    $.ajax({
+        async: false,
+        type: "post",
+        url: "/reader/is_exist",
+        dataType: "json",
+        data: {user:user},
+        success: function (data) {
+            var a = JSON.stringify(data)
+            if(a==="false"){
+                alert("用户名不存在");
+                window.reload();
             }
-        } ,
-        messages:{ //提示
-            cardNumber:{
-                required: "请输入借书证号",
-            },
-            password:{
-                required: "请输入密码",
-                minLength: "密码长度不能小于6位"
-            }
+        },
+        error: function (data) {
         }
     });
-
-    // $("#submit").click(function () {
-    //     login();
-    // });
-});
-//
-// function login() {
-//     $.ajax({
-//         async : false,
-//         type : "post",
-//         url : "/reader/userLogin",
-//         dataType : "json",
-//         data: $('#form1').serialize(),
-//         success: function (data) {
-//             alert("登录成功")
-//             location.href="http://localhost:8080/reader/to_index";
-//         },
-//         error:function (data) {
-//             alert("用户名或密码错误");
-//             window.history.go(-1);
-//         }
-//     });
-// };
+}

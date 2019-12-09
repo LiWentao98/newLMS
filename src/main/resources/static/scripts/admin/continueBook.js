@@ -22,7 +22,7 @@ $(document).ready(function () {
         if(confirm("确认续借?")){
             var tr = $(this).closest("tr");
             var rId= tr.find("td:eq(0)").text();
-            var bCT= tr.find("td:eq(5)").text();
+            var bCT= tr.find("td:eq(6)").text();
             var borrowId=$(this).val();
             // alert(userId);
             continueBook(borrowId,rId,bCT);

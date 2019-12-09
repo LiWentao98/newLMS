@@ -27,17 +27,21 @@
             <th>超出天数</th>
             <th>超出金额</th>
             <th>罚款金额</th>
+            <th>操作</th>
         </tr>
         <tr th:each="borrows : ${b}">
             <td th:text="${borrows.getBorrow_id()}"></td>
             <td th:text="${borrows.getR_name()}"></td>
             <td th:text="${borrows.getB_name()}"></td>
             <td th:text="${borrows.getId_continue_times()}"></td>
-            <td th:text="${borrows.getId_date_out()}"></td>
-            <td th:text="${borrows.getId_date_ret_plan()}"></td>
-            <td th:text="${borrows.getId_over_day()}"></td>
-            <td th:text="${borrows.getId_over_money()}"></td>
-            <td th:text="${borrows.getId_punish_money()}"></td>
+            <td th:text="${#dates.format(borrows.getId_date_out(),'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(borrows.getId_date_ret_plan(),'yyyy-MM-dd')}"></td>
+            <td th:if="${borrows.getId_over_day()} != null"><label th:text="${borrows.getId_over_day()}"></label></td>
+            <td th:if="${borrows.getId_over_day()} == null"><label th:text="${0}"></label></td>
+            <td th:if="${borrows.getId_over_money()} != null"><label th:text="${borrows.getId_over_money()}"></label></td>
+            <td th:if="${borrows.getId_over_money()} == null"><label th:text="${0}"></label></td>
+            <td th:if="${borrows.getId_punish_money()} != null"><label th:text="${borrows.getId_punish_money()}"></label></td>
+            <td th:if="${borrows.getId_punish_money()} == null"><label th:text="${0}"></label></td>
             <td style="display:none" id="readerId" th:text="${borrows.getR_id()}"></td>
             <td style="display:none" id="bookId" th:text="${borrows.getB_id()}"></td>
             <td><button th:value="${borrows.getBorrow_id()}">还书</button></td>

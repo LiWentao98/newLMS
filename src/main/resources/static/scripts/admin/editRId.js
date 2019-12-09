@@ -9,6 +9,15 @@ $(document).ready(function () {
         }
     });
 
+    $("#btn3").click(function () {
+        if(confirm("确认注销?")){
+            var rId=$(this).val();
+            // alert(userId);
+            logout(rId);
+            //$(this).parent().parent().remove();
+        }
+    });
+
     $("#btn2").click(function () {
         if(confirm("确认解除?")){
             var r_id=$(this).val();
@@ -33,6 +42,27 @@ function closeVoucher(r_id) {
                 alert("挂失失败");
             }else {
                 alert("挂失成功");
+            }
+            window.history.go(-1);
+        },
+        error: function (data) {
+        }
+    });
+}
+
+function logout(rId) {
+    $.ajax({
+        async: false,
+        type: "post",
+        url: "/admin/logout_rId",
+        dataType : "json",
+        data: {rId:rId},
+        success: function (data) {
+            var a = JSON.stringify(data)
+            if(a==="false"){
+                alert("注销失败");
+            }else {
+                alert("注销成功");
             }
             window.history.go(-1);
         },

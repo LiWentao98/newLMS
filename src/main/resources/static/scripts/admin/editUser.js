@@ -24,7 +24,7 @@ function editUser() {
         error: function (data) {
         }
     });
-};
+}
 
 
 

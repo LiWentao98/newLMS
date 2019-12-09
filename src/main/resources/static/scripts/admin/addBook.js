@@ -1,8 +1,4 @@
 $(document).ready(function () {
-
-    //查找所有图书种类，并给select选择框赋值
-   // findAllBookCategory();
-
     //给选择框赋值
     findAllBookCategory();
     //插入图书编号
@@ -46,6 +42,12 @@ function validateAddBookForm() {
             },
             bookIntroduction:{
                 required:true
+            },
+            // bookCover:{
+            //     required:true
+            // },
+            bookRepertory:{
+                required:true
             }
         } ,
         messages:{
@@ -79,6 +81,9 @@ function validateAddBookForm() {
             },
             bookIntroduction:{
                 required:"请输入简介"
+            },
+            bookRepertory:{
+                required:"请输入数量"
             }
         }
     });
@@ -134,7 +139,7 @@ function addBookCode() {
         success: function (data) {
             console.log(data);
             $("select[name='b_code_last']").empty();
-            $("select[name='b_code_last']").append('<option value="">——请选择——</option>');
+            $("select[name='b_code_last']").append('<option value="'+data[0].b_code+'">——请选择——</option>');
             for(var i=0;i<data.length;i++){
                 var html ='<option value="'+data[i].b_code+'">';
                 html +=data[i].b_code + '</option>';
