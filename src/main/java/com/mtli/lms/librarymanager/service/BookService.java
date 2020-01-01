@@ -14,8 +14,6 @@ import java.util.List;
 public interface BookService {
     //图书添加业务
     void add(Book book);
-    //图书删除业务(根据条件)
-    void delete(Book book);
     //图书信息修改业务
     void update(Book book);
     //根据图书条件查询(分页)
@@ -28,7 +26,7 @@ public interface BookService {
     Book searchBookByBId(Integer b_id);
     //查询book表最后一项书的图书编号
     List<Book> searchBookLastCode();
-    //
+    //根据条件查询图书数量
     int searchBookCountByConditions(Book book);
     //添加图片
     int addPhoto( MultipartFile file,Integer b_id)throws Exception;

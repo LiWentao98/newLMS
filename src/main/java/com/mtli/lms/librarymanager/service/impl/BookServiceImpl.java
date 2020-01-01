@@ -23,11 +23,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(Book book) {
-        bookMapper.deleteBook(book);
-    }
-
-    @Override
     public void update(Book book) {
         bookMapper.updateBook(book);
     }
@@ -53,6 +48,10 @@ public class BookServiceImpl implements BookService {
         return pageList;
     }
 
+    /**
+     * 查询所有图书
+     * @return
+     */
     @Override
     public List<Book> selectAllBook() {
         return bookMapper.selectAllBook();
@@ -68,33 +67,44 @@ public class BookServiceImpl implements BookService {
         return bookMapper.searchBookCount(b_catalog);
     }
 
+    /**
+     * 根据图书id查询图书
+     * @param b_id
+     * @return
+     */
     @Override
     public Book searchBookByBId(Integer b_id) {
         return bookMapper.searchBookByBId(b_id);
     }
 
+    /**
+     * 查询当前最后一个图书的编号
+     * @return
+     */
     @Override
     public List<Book> searchBookLastCode() {
         return bookMapper.searchBookCode();
     }
 
+    /**
+     * 根据条件查询图书数量
+     * @param book
+     * @return
+     */
     @Override
     public int searchBookCountByConditions(Book book) {
         return bookMapper.selectBookCountByConditions(book);
     }
 
+    /**
+     * 上传图书图片
+     * @param file
+     * @param b_id
+     * @return
+     * @throws Exception
+     */
     @Override
     public int addPhoto( MultipartFile file,Integer b_id) throws Exception{
-        //转换图片格式 :MultipartFile --> byte
-//        byte[] b1 = file.getBytes();
-//        Book book = new Book();
-//        book.setB_id(b_id);
-//        book.setB_cover(b1);
-//        int res = bookMapper.updateBook(book);
-//        if(res>0){
-//            return 1;
-//        }
-//        return 0;
         String filePath="E:/JavaTest/librarymanager/src/main/resources/static/images/";
         //判断文件夹是否存在，不存在则创建
         File file1 = new File(filePath);
@@ -119,7 +129,5 @@ public class BookServiceImpl implements BookService {
         }
         return 0;
     }
-
-
 }
 

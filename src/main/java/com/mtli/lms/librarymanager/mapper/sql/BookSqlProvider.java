@@ -1,7 +1,6 @@
 package com.mtli.lms.librarymanager.mapper.sql;
 
 import com.mtli.lms.librarymanager.model.Book;
-import com.mtli.lms.librarymanager.model.Reader;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
@@ -155,11 +154,4 @@ public class BookSqlProvider {
             FROM("book");
         }}.toString();
     }
-
-
-
-
-
-
-
 }
